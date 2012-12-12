@@ -1,0 +1,116 @@
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>101 irofs</title>
+    <style>
+      #container {
+        margin: 0 auto;
+      }
+      .item {
+        margin: 5px;
+        float: left;
+      }
+      .size1 {
+        border: solid 5px black;
+        border-radius:10px;
+      }
+      .size2 {
+        border: solid 4px black;
+        border-radius:9px;
+      }
+      .size3 {
+        border: solid 3px black;
+        border-radius:8px;
+      }
+      .size4 {
+        border: solid 2px black;
+        border-radius:7px;
+      }
+      .size5 {
+        border: solid 1px black;
+        border-radius:6px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>101 irofs</h1>
+    <div id="container"></div>
+
+    <script src="./jquery-1.8.3.min.js"></script>
+    <script src="./jquery.masonry.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        var container = $("#container");
+        for (var i=1; i<=101; i++) {
+          var canvas = $("<canvas class='item'></canvas>");
+          var r = Math.random();
+          if(r < 0.05){
+            $(canvas).attr({ width: 240, height: 240}).addClass("size1");
+          } else if(r < 0.15){
+            $(canvas).attr({ width: 180, height: 180}).addClass("size2");
+          } else if(r < 0.3){
+            $(canvas).attr({ width: 120, height: 120}).addClass("size3");
+          } else if(r < 0.5){
+            $(canvas).attr({ width: 60, height: 60}).addClass("size4");
+          } else {
+            $(canvas).attr({ width: 30, height: 30}).addClass("size5");
+          }
+          container.append(canvas);
+          drawIrof(canvas.get(0));
+        }
+        container.masonry({
+          columnWidth: 100,
+          gutterWidth: 10,
+          isAnimated: true,
+          isFitWidth: true
+        });
+      });
+
+      function drawIrof(canvas) {
+        if ( !canvas || !canvas.getContext ) {
+          return false;
+        }
+
+        var ctx = canvas.getContext('2d');
+        var len = canvas.width;
+
+        ctx.lineWidth = len * 0.025;
+        ctx.strokeStyle = "#f";
+
+        ctx.beginPath();
+        ctx.arc(len * 0.78, len * 0.75, len * 0.4, -153*Math.PI/180, 165*Math.PI/180, false);
+        ctx.lineTo(len * 0.68, len * 0.82);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(len * 0.82, len * 0.65, len * 0.06, 0, Math.PI*2, false);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(len * 0.15, len * 0.18, len * 0.12, -90*Math.PI/180, 90*Math.PI/180, true);
+        ctx.arc(len * 0.40,  len * 0.28, len * 0.15, 175*Math.PI/180, 90*Math.PI/180, true);
+        ctx.arc(len * 0.48,  len * 0.30, len * 0.15, 120*Math.PI/180, 180*Math.PI/180, false);
+        ctx.arc(len * 0.50, len * 0.18, len * 0.12, 90*Math.PI/180, -90*Math.PI/180, true);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(len * 0.165, len * 0.17, len * 0.025, 0, Math.PI*2, false);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(len * 0.275, len * 0.18, len * 0.025, 0, Math.PI*2, false);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(len * 0.385, len * 0.18, len * 0.025, 0, Math.PI*2, false);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(len * 0.5, len * 0.18, len * 0.025, 0, Math.PI*2, false);
+        ctx.fill();
+      }
+    </script>
+  </body>
+</html>
